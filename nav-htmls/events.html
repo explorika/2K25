@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - NZ-Fest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+   
+</head>
+<body>
+ 
+    <section class="events-hero">
+        <div class="hero-content">
+            <h1>Our Events</h1>
+            <p>Discover the excitement that awaits you</p>
+        </div>
+    </section>
+
+    <section class="highlights section" style="background-color: rgb(245, 252, 255);">
+        <div class="container">
+            <h2>Event Highlights</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800" alt="Hackathon">
+                    <div class="highlight-content">
+                        <h3>Dance Dhamaka</h3>
+                        <p>"Gear Up for the Ultimate Gully Cricket Showdown – Where Legends Are Made in the Lanes!" </p>
+                        <p id="event-time">24th Apr, 11:30</p>
+                        <div id="btn-more">
+                          <a href="details.html" class="highlight-link">  <button>Register & Rules</button> </a>
+                       
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800" alt="Hackathon">
+                    <div class="highlight-content">
+                        <h3>Dance Dhamaka</h3>
+                        <p>"Gear Up for the Ultimate Gully Cricket Showdown – Where Legends Are Made in the Lanes!" </p>
+                        <p id="event-time">24th Apr, 11:30</p>
+                        <div id="btn-more">
+                          <a href="details.html" class="highlight-link">  <button>Register & Rules</button> </a>
+                       
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-card">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800" alt="Cultural Night">
+                    <div class="highlight-content">
+                        <h3>Gully Cricket</h3>
+                        <p>"Gear Up for the Ultimate Gully Cricket Showdown – Where Legends Are Made in the Lanes!" </p>
+                        <p id="event-time">24th Apr, 11:30</p>
+                        <div id="btn-more">
+                          <a href="details.html" class="highlight-link">  <button>Register & Rules</button> </a>
+                       
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-card">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800" alt="Workshop">
+                    <div class="highlight-content">
+                        <h3>Gully Cricket</h3>
+                        <p>"Gear Up for the Ultimate Gully Cricket Showdown – Where Legends Are Made in the Lanes!" </p>
+                        <p id="event-time">24th Apr, 11:30</p>
+                        <div id="btn-more">
+                          <a href="details.html" class="highlight-link">  <button>Register & Rules</button> </a>
+                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="event-moree">
+       <p> <button id="event-more">More</button> </p>
+    </div>
+    </section>
+
+
+    <script>
+        // Internal JavaScript for events page
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.event-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</body>
+</html>
