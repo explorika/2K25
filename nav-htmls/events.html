@@ -86,6 +86,22 @@
         padding: 6px 12px;
       }
     }
+
+
+
+    .blink-slow {
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -95,7 +111,7 @@
   <table class="event-table">
     <thead>
       <tr>
-        <th>📌 Click for Details</th>
+        <th class="blink-slow">📌 Click for Details</th>
         <th>📝 Register</th>
       </tr>
     </thead>
