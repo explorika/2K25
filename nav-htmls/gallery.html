@@ -10,234 +10,512 @@
 
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/explorika/2K25/main/favicon-32x32.png" />
 
-    <style>
-        /* Internal styles for gallery page */
-        *{
-            font-family: poppins;
+    
+      <style>
+        * {
+          box-sizing: border-box;
+          font-family: poppins;
+        }
+
+           body {
+          margin: 0;
+          font-family: 'Segoe UI', sans-serif;
+          /* background: linear-gradient(120deg, #f6f9fc, #dfe9f3); */
+            
+          height: 100vh;
         }
         .gallery-hero {
-            height: 60vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                        url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000') center/cover;
+            height: 80px;
+            /* background: linear-gradient(rgba(255, 228, 228, 0.2), rgba(121, 121, 121, 0.185)), */
+                        /* url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000') center/cover; */
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: rgb(0, 0, 0);
             text-align: center;
            
         }
-
-        .gallery-container {
-            max-width: 1400px;
-            margin: 4rem auto;
-            padding: 0 2rem;
+        h1{
+            margin: 0;
+            margin-bottom: -20px;
+            padding: 0;
         }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+        p{
+            margin: 0;
+            margin-top: 30px;
+            padding: 0;
         }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            cursor: pointer;
-            height: 300px;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.6s ease;
+     
+        .slider-container {
+          position: relative;
+          width: 700px;
+          height: 450px;
+          overflow: hidden;
+          margin-inline: auto;
+          margin-top: 40px;
+          max-width: 1000px;
+          overflow: hidden;
+          border-radius: 10px;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+          /* background: #fff; */
         }
-
-        .gallery-item.visible {
-            opacity: 1;
-            transform: scale(1);
+        .slider-track {
+          display: flex;
+          transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
+        .slider-track img {
+          width: 100%;
+          flex-shrink: 0;
+          object-fit: cover;
+          border-radius: 10px;
+          min-height: 350px;
+          filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+          transition: transform 0.5s ease;
         }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
+        .slider-track img:hover {
+          transform: scale(1.03);
         }
-
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .nav-button {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: linear-gradient(135deg, #ff564a, #ff8989f5);
+          border: none;
+          color: white;
+          font-size: 1.2rem;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          z-index: 10;
+          border-radius: 50%;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+          transition: background 0.3s;
         }
-
-        .gallery-item:hover::after {
-            opacity: 1;
+        .nav-button:hover {
+          background: linear-gradient(135deg, #fffd89, #ff8989f5);
         }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem;
-            color: white;
-            z-index: 1;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
+        .prev {
+          left: 15px;
         }
-
-        .gallery-item:hover .gallery-caption {
-            transform: translateY(0);
+        .next {
+          right: 15px;
         }
-
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+        .dots {
+          position: absolute;
+          bottom: 15px;
+          width: 100%;
+          text-align: center;
         }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-        }
-
+        .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffadad;
+      margin: 0 4px;
+      transition: opacity 0.3s ease, transform 0.3s ease-in-out;
+      display: inline-block;
+      cursor: pointer;
+      opacity: 0.2;
+      transform: scale(1);
+    }
+    
+    .dot.active {
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      animation: squeeze 0.5s ease forwards;
+    }
+    
+    @keyframes squeeze {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.4, 0.6);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    
+    
         @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
+          .slider-track img {
+            min-height: 220px;
+          }
+          .nav-button {
+            font-size: 1.5rem;
+          }
+    
+          .slider-container{
+            width: 92%;
+          }
         }
-    </style>
+    
+    
+        
+        @media (max-width: 500px) {
+            .slider-container {
+                width: 360px;
+                height: 276px;
+                margin-block: 0;
+        
+            }
+          .nav-button{
+            display: none;
+          }
+          body{
+            gap: 70px;
+            height: 100vh !important;
+           display: flex;
+           overflow-x: hidden;
+           flex-direction: column;
+           background: linear-gradient(135deg, #f8e4e4, #ebedee);
+           justify-content: space-around;
+           align-items: center;
+            overflow: hidden !important;
+          }
+          .mobile{
+            display: block;
+          }
+          .dot{
+            width: 8px;
+            height: 8px;
+          }
+          p{
+            margin-top: 150px;
+            font-size: 1.3rem;
+          }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .cta-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  margin: 0px auto;
+  margin-top: 80px;
+  position: relative;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.cta-box::before,
+.cta-box::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffa17f, #00223e);
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.cta-box::before {
+  width: 150px;
+  height: 150px;
+  top: -50px;
+  left: -50px;
+}
+
+.cta-box::after {
+  width: 200px;
+  height: 200px;
+  bottom: -60px;
+  right: -60px;
+}
+
+.cta-text {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.cta-text .highlight {
+  color: #0056b3;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .cta-text {
+    font-size: 1rem;
+  }
+  .cta-box {
+    padding: 30px 20px;
+    margin-top: -80px;
+  }
+  .cta-box::after {
+display: none;
+}
+}
+
+      </style>
 </head>
 <body>
   
     <section class="gallery-hero">
         <div class="hero-content">
-            <h1>Our Gallery</h1>
-            <p>Capturing moments that last forever</p>
+            <p>📷 Captured Moments of,</p>
+            <h1>Explorika 2K24</h1>
         </div>
     </section>
 
-    <div class="gallery-container">
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800" alt="Tech Workshop">
-                <div class="gallery-caption">
-                    <h3>Tech Workshop 2023</h3>
-                    <p>Learning the future of technology</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800" alt="Cultural Performance">
-                <div class="gallery-caption">
-                    <h3>Cultural Night</h3>
-                    <p>Celebrating diversity through dance</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800" alt="Hackathon">
-                <div class="gallery-caption">
-                    <h3>24-Hour Hackathon</h3>
-                    <p>Innovation at its finest</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800" alt="Music Concert">
-                <div class="gallery-caption">
-                    <h3>Evening Concert</h3>
-                    <p>Music that moves the soul</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800" alt="Award Ceremony">
-                <div class="gallery-caption">
-                    <h3>Awards Night</h3>
-                    <p>Recognizing excellence</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800" alt="Workshop">
-                <div class="gallery-caption">
-                    <h3>Interactive Sessions</h3>
-                    <p>Learning through engagement</p>
-                </div>
-            </div>
+    <div class="slider-container">
+        <div class="slider-track" id="sliderTrack">
+          <!-- 15 alternating images -->
+         
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/maingrp.jpg
+          " loading="lazy">
+       
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/DANCEE.jpg
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/eransir.jpg
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/girls.jpg
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/mona.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/peacock.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/phalud.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/face1.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/rangli.jpg
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/potmon.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/mams.jpg
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/vardansit.jpg
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/face2.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/duo.jpg
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/dance.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/potsun.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/sandwich.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/mehendi.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/football.png
+          " loading="lazy">
+          <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/fulfood.png
+          " loading="lazy">
+          <!-- <img data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfEfN-9Kl3nJlS8qbmHGVzHIHBGzg5PagKWA&s" loading="lazy"> -->
+    
+    
         </div>
-    </div>
-
-    <div class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img src="" alt="Lightbox Image">
-    </div>
-
-    <script>
-        // Internal JavaScript for gallery page
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.2
-            });
-
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                observer.observe(item);
-            });
-
-            // Lightbox functionality
-            const lightbox = document.querySelector('.lightbox');
-            const lightboxImg = lightbox.querySelector('img');
-            const lightboxClose = lightbox.querySelector('.lightbox-close');
-
-            document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', () => {
-        if (window.innerWidth > 768) { // show lightbox only on desktop
-            const img = item.querySelector('img');
-            lightboxImg.src = img.src;
-            lightbox.style.display = 'flex';
-        }
-    });
-});
+        <button class="nav-button prev" id="prevBtn">&#10094;</button>
+        <button class="nav-button next" id="nextBtn">&#10095;</button>
+        <div class="dots" id="dotsContainer"></div>
+      </div>
 
 
-            lightboxClose.addEventListener('click', () => {
-                lightbox.style.display = 'none';
-            });
+      <div class="cta-box">
+        <div class="cta-text">
+          If You’ve seen the memories — <span class="highlight">now it’s your turn to make them.</span><br>
+          Be a part of the <span class="highlight">Explorika</span> 2K25!
+        </div>
+      </div>
+      
 
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    lightbox.style.display = 'none';
-                }
-            });
-        });
-    </script>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+      <script>
+        const sliderTrack = document.getElementById('sliderTrack');
+     const images = sliderTrack.querySelectorAll('img');
+     const prevBtn = document.getElementById('prevBtn');
+     const nextBtn = document.getElementById('nextBtn');
+     const dotsContainer = document.getElementById('dotsContainer');
+     
+     let currentIndex = 0;
+     let autoSlideInterval;
+     let resumeTimeout;
+     const MAX_VISIBLE_DOTS = 7; // Must be odd for symmetry
+     
+     // Lazy load images
+     const lazyLoad = () => {
+       images.forEach(img => {
+         if (!img.src) {
+           img.src = img.getAttribute('data-src');
+         }
+       });
+     };
+     
+     // Update the slider transform and dots
+     const updateSlider = () => {
+       const offset = -currentIndex * 100;
+       sliderTrack.style.transform = `translateX(${offset}%)`;
+       updateDots();
+     };
+     
+     // Next and Prev logic
+     const nextSlide = () => {
+       currentIndex = (currentIndex + 1) % images.length;
+       updateSlider();
+     };
+     
+     const prevSlide = () => {
+       currentIndex = (currentIndex - 1 + images.length) % images.length;
+       updateSlider();
+     };
+     
+     // Auto Slide with pause/resume
+     const pauseAutoSlide = () => {
+       clearInterval(autoSlideInterval);
+       clearTimeout(resumeTimeout);
+       resumeTimeout = setTimeout(startAutoSlide, 4000);
+     };
+     
+     const startAutoSlide = () => {
+       autoSlideInterval = setInterval(nextSlide, 3000);
+     };
+     
+     // Create and update limited fading dots
+     const createDots = () => {
+       updateDots(); // Initial render
+     };
+     
+     // const MAX_VISIBLE_DOTS = 7; // Adjust based on preference
+     
+     const updateDots = () => {
+       dotsContainer.innerHTML = '';
+       const half = Math.floor(MAX_VISIBLE_DOTS / 2);
+       let start = currentIndex - half;
+       let end = currentIndex + half;
+     
+       if (start < 0) {
+         end += -start;
+         start = 0;
+       }
+     
+       if (end >= images.length) {
+         const diff = end - images.length + 1;
+         start = Math.max(0, start - diff);
+         end = images.length - 1;
+       }
+     
+       for (let i = start; i <= end; i++) {
+         const dot = document.createElement('span');
+         dot.classList.add('dot');
+     
+         const distance = Math.abs(i - currentIndex);
+         const opacity = 1 - (distance / (half + 1)); // Smooth gradient
+         dot.style.opacity = opacity.toFixed(2);
+     
+         if (i === currentIndex) dot.classList.add('active');
+     
+         dot.addEventListener('click', () => {
+           currentIndex = i;
+           updateSlider();
+           pauseAutoSlide();
+         });
+     
+         dotsContainer.appendChild(dot);
+       }
+     };
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     // Touch swipe support with pause on hold
+     let startX = 0;
+     let isTouching = false;
+     let holdTimeout;
+     
+     // When touch starts
+     sliderTrack.addEventListener('touchstart', (e) => {
+       startX = e.touches[0].clientX;
+       isTouching = true;
+     
+       // Pause auto-slide immediately when user touches
+       clearInterval(autoSlideInterval);
+       clearTimeout(resumeTimeout);
+       clearTimeout(holdTimeout); // clear any pending resumes
+     });
+     
+     // When touch is moving
+     sliderTrack.addEventListener('touchmove', (e) => {
+       if (!isTouching) return;
+       const moveX = e.touches[0].clientX;
+       const diff = startX - moveX;
+     
+       if (Math.abs(diff) > 50) {
+         if (diff > 0) {
+           nextSlide();
+         } else {
+           prevSlide();
+         }
+         isTouching = false; // prevent multiple triggers
+       }
+     });
+     
+     // When touch ends
+     sliderTrack.addEventListener('touchend', () => {
+       isTouching = false;
+     
+       // Wait 2 seconds before resuming auto-slide
+       holdTimeout = setTimeout(() => {
+         startAutoSlide();
+       }, 2000);
+     });
+     
+     
+     
+     
+  
+     
+     // Navigation buttons
+     prevBtn.addEventListener('click', () => {
+       prevSlide();
+       pauseAutoSlide();
+     });
+     
+     nextBtn.addEventListener('click', () => {
+       nextSlide();
+       pauseAutoSlide();
+     });
+     
+     // Init
+     lazyLoad();
+     createDots();
+     updateSlider();
+     startAutoSlide();
+     
+       </script>
+   
 </body>
 </html>
