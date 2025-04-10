@@ -129,55 +129,375 @@
           <hr>
         <section class="highlights section" >
               <h2>Gallery</h2>
-            <div class="gallery-container">
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800" alt="Tech Workshop">
-                        <div class="gallery-caption">
-                            <h3>Tech Workshop 2023</h3>
-                            <p>Learning the future of technology</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800" alt="Cultural Performance">
-                        <div class="gallery-caption">
-                            <h3>Cultural Night</h3>
-                            <p>Celebrating diversity through dance</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800" alt="Hackathon">
-                        <div class="gallery-caption">
-                            <h3>24-Hour Hackathon</h3>
-                            <p>Innovation at its finest</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800" alt="Music Concert">
-                        <div class="gallery-caption">
-                            <h3>Evening Concert</h3>
-                            <p>Music that moves the soul</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800" alt="Award Ceremony">
-                        <div class="gallery-caption">
-                            <h3>Awards Night</h3>
-                            <p>Recognizing excellence</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800" alt="Workshop">
-                        <div class="gallery-caption">
-                            <h3>Interactive Sessions</h3>
-                            <p>Learning through engagement</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="event-moree">
-                <p> <a href="nav-htmls/gallery.html"><button id="event-more">More</button> </a> </p>
-             </div>
+         
+
+
+              <style>
+
+
+     
+        .slider-container {
+          position: relative;
+          width: 700px;
+          height: 450px;
+          overflow: hidden;
+          margin-inline: auto;
+          margin-top: 40px;
+          max-width: 1000px;
+          overflow: hidden;
+          border-radius: 10px;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+          /* background: #fff; */
+        }
+        .slider-track {
+          display: flex;
+          transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .slider-track img {
+          width: 100%;
+          flex-shrink: 0;
+          object-fit: cover;
+          border-radius: 10px;
+          min-height: 350px;
+          filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+          transition: transform 0.5s ease;
+        }
+        .slider-track img:hover {
+          transform: scale(1.03);
+        }
+        .nav-button {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: linear-gradient(135deg, #ff564a, #ff8989f5);
+          border: none;
+          color: white;
+          font-size: 1.2rem;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          z-index: 10;
+          border-radius: 50%;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+          transition: background 0.3s;
+        }
+        .nav-button:hover {
+          background: linear-gradient(135deg, #fffd89, #ff8989f5);
+        }
+        .prev {
+          left: 15px;
+        }
+        .next {
+          right: 15px;
+        }
+        .dots {
+          position: absolute;
+          bottom: 15px;
+          width: 100%;
+          text-align: center;
+        }
+        .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffadad;
+      margin: 0 4px;
+      transition: opacity 0.3s ease, transform 0.3s ease-in-out;
+      display: inline-block;
+      cursor: pointer;
+      opacity: 0.2;
+      transform: scale(1);
+    }
+    
+    .dot.active {
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      animation: squeeze 0.5s ease forwards;
+    }
+    
+    @keyframes squeeze {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.4, 0.6);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    
+    
+        @media (max-width: 768px) {
+          .slider-track img {
+            min-height: 220px;
+          }
+          .nav-button {
+            font-size: 1.5rem;
+          }
+    
+          .slider-container{
+            width: 92%;
+          }
+        }
+    
+    
+        
+        @media (max-width: 500px) {
+            .slider-container {
+                width: 360px;
+                height: 268px;
+                margin-block: 0;
+        
+            }
+          .nav-button{
+            display: none;
+          }
+        
+          .mobile{
+            display: block;
+          }
+          .dot{
+            width: 8px;
+            height: 8px;
+          }
+         
+        }
+              </style>
+
+
+<div class="slider-container">
+    <div class="slider-track" id="sliderTrack">
+      <!-- 15 alternating images -->
+     
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/maingrp.jpg
+      " loading="lazy">
+   
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/DANCEE.jpg
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/eransir.jpg
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/girls.jpg
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/mona.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/peacock.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/phalud.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/face1.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/rangli.jpg
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/potmon.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/mams.jpg
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/vardansit.jpg
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/face2.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/duo.jpg
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/dance.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/potsun.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/sandwich.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/mehendi.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/football.png
+      " loading="lazy">
+      <img data-src="https://raw.githubusercontent.com/explorika/2K25/main/pics/fulfood.png
+      " loading="lazy">
+      <!-- <img data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfEfN-9Kl3nJlS8qbmHGVzHIHBGzg5PagKWA&s" loading="lazy"> -->
+
+
+    </div>
+    <button class="nav-button prev" id="prevBtn">&#10094;</button>
+    <button class="nav-button next" id="nextBtn">&#10095;</button>
+    <div class="dots" id="dotsContainer"></div>
+  </div>
+
+  <script>
+    const sliderTrack = document.getElementById('sliderTrack');
+ const images = sliderTrack.querySelectorAll('img');
+ const prevBtn = document.getElementById('prevBtn');
+ const nextBtn = document.getElementById('nextBtn');
+ const dotsContainer = document.getElementById('dotsContainer');
+ 
+ let currentIndex = 0;
+ let autoSlideInterval;
+ let resumeTimeout;
+ const MAX_VISIBLE_DOTS = 7; // Must be odd for symmetry
+ 
+ // Lazy load images
+ const lazyLoad = () => {
+   images.forEach(img => {
+     if (!img.src) {
+       img.src = img.getAttribute('data-src');
+     }
+   });
+ };
+ 
+ // Update the slider transform and dots
+ const updateSlider = () => {
+   const offset = -currentIndex * 100;
+   sliderTrack.style.transform = `translateX(${offset}%)`;
+   updateDots();
+ };
+ 
+ // Next and Prev logic
+ const nextSlide = () => {
+   currentIndex = (currentIndex + 1) % images.length;
+   updateSlider();
+ };
+ 
+ const prevSlide = () => {
+   currentIndex = (currentIndex - 1 + images.length) % images.length;
+   updateSlider();
+ };
+ 
+ // Auto Slide with pause/resume
+ const pauseAutoSlide = () => {
+   clearInterval(autoSlideInterval);
+   clearTimeout(resumeTimeout);
+   resumeTimeout = setTimeout(startAutoSlide, 4000);
+ };
+ 
+ const startAutoSlide = () => {
+   autoSlideInterval = setInterval(nextSlide, 3000);
+ };
+ 
+ // Create and update limited fading dots
+ const createDots = () => {
+   updateDots(); // Initial render
+ };
+ 
+ // const MAX_VISIBLE_DOTS = 7; // Adjust based on preference
+ 
+ const updateDots = () => {
+   dotsContainer.innerHTML = '';
+   const half = Math.floor(MAX_VISIBLE_DOTS / 2);
+   let start = currentIndex - half;
+   let end = currentIndex + half;
+ 
+   if (start < 0) {
+     end += -start;
+     start = 0;
+   }
+ 
+   if (end >= images.length) {
+     const diff = end - images.length + 1;
+     start = Math.max(0, start - diff);
+     end = images.length - 1;
+   }
+ 
+   for (let i = start; i <= end; i++) {
+     const dot = document.createElement('span');
+     dot.classList.add('dot');
+ 
+     const distance = Math.abs(i - currentIndex);
+     const opacity = 1 - (distance / (half + 1)); // Smooth gradient
+     dot.style.opacity = opacity.toFixed(2);
+ 
+     if (i === currentIndex) dot.classList.add('active');
+ 
+     dot.addEventListener('click', () => {
+       currentIndex = i;
+       updateSlider();
+       pauseAutoSlide();
+     });
+ 
+     dotsContainer.appendChild(dot);
+   }
+ };
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ // Touch swipe support with pause on hold
+ let startX = 0;
+ let isTouching = false;
+ let holdTimeout;
+ 
+ // When touch starts
+ sliderTrack.addEventListener('touchstart', (e) => {
+   startX = e.touches[0].clientX;
+   isTouching = true;
+ 
+   // Pause auto-slide immediately when user touches
+   clearInterval(autoSlideInterval);
+   clearTimeout(resumeTimeout);
+   clearTimeout(holdTimeout); // clear any pending resumes
+ });
+ 
+ // When touch is moving
+ sliderTrack.addEventListener('touchmove', (e) => {
+   if (!isTouching) return;
+   const moveX = e.touches[0].clientX;
+   const diff = startX - moveX;
+ 
+   if (Math.abs(diff) > 50) {
+     if (diff > 0) {
+       nextSlide();
+     } else {
+       prevSlide();
+     }
+     isTouching = false; // prevent multiple triggers
+   }
+ });
+ 
+ // When touch ends
+ sliderTrack.addEventListener('touchend', () => {
+   isTouching = false;
+ 
+   // Wait 2 seconds before resuming auto-slide
+   holdTimeout = setTimeout(() => {
+     startAutoSlide();
+   }, 2000);
+ });
+ 
+ 
+ 
+ 
+
+ 
+ // Navigation buttons
+ prevBtn.addEventListener('click', () => {
+   prevSlide();
+   pauseAutoSlide();
+ });
+ 
+ nextBtn.addEventListener('click', () => {
+   nextSlide();
+   pauseAutoSlide();
+ });
+ 
+ // Init
+ lazyLoad();
+ createDots();
+ updateSlider();
+ startAutoSlide();
+ 
+   </script>
+
        
         </section>
 
@@ -243,19 +563,7 @@
                 </div>
                 <!-- End of FAQ Item 4 -->
               
-                <!-- FAQ Item 5 -->
-                <!-- <div class="faq-item">
-                  <div class="faq-question">
-                    Will participants receive certificates?
-                    <svg class="toggle-icon" viewBox="0 0 20 20">
-                      <path d="M5 7l5 5 5-5H5z" fill="white"/>
-                    </svg>
-                  </div>
-                  <div class="faq-answer">
-                    Yes, participants will receive digital certificates. Winners will also receive physical certificates and exciting prizes.
-                  </div>
-                </div> -->
-                <!-- End of FAQ Item 5 -->
+              
               
                 <!-- FAQ Item 6 -->
                 <div class="faq-item">
