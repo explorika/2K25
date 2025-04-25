@@ -7,7 +7,7 @@ navToggle.addEventListener('click', () => {
 });
 
 // Countdown Timer
-const countdownDate = new Date('April 25, 2025 10:00:00').getTime();
+const countdownDate = new Date('April 25, 2025 8:00:00').getTime();
 
 function updateCountdown() {
     const now = new Date().getTime();
