@@ -25,7 +25,7 @@ function updateCountdown() {
 
     if (distance < 0) {
         clearInterval(countdownInterval);
-        // document.getElementById('countdown').innerHTML = '<h2>The Event Has Started! <br> Day 1: Ethnic Day</h2>';
+         document.getElementById('countdown').innerHTML = '<h2>The Event Has Started! <br> Day 1: Ethnic Day</h2>';
     }
 }
 
