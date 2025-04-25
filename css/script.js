@@ -7,7 +7,7 @@ navToggle.addEventListener('click', () => {
 });
 
 // Countdown Timer
-const countdownDate = new Date('April 25, 2025 17:00:00').getTime();
+const countdownDate = new Date('April 25, 2025 10:00:00').getTime();
 
 function updateCountdown() {
     const now = new Date().getTime();
@@ -25,7 +25,7 @@ function updateCountdown() {
 
     if (distance < 0) {
         clearInterval(countdownInterval);
-        // document.getElementById('countdown').innerHTML = '<h2>The Event Has Started!</h2>';
+        // document.getElementById('countdown').innerHTML = '<h2>The Event Has Started! <br> Day 1: Ethnic Day</h2>';
     }
 }
 
